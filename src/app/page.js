@@ -13,6 +13,7 @@ export default async function HomePage() {
 				__typename
 				... on CustomTextImageBlock {
 				  attributes {
+					heading
 					text
 					imageUrl
 				  }
@@ -38,11 +39,11 @@ export default async function HomePage() {
 	  return <div>No block found</div>;
 	}
   
-	const { text, imageUrl } = textImageBlock.attributes;
+	const { heading, text, imageUrl } = textImageBlock.attributes;
   
 	return (
 	  <div>
-		<TextImage text={text} imageUrl={imageUrl} />
+		<TextImage heading={heading} text={text} imageUrl={imageUrl} />
 	  </div>
 	);
 }
