@@ -1,4 +1,4 @@
-export const dynamicParams = true;
+import styles from './page.module.scss';
 
 export async function generateStaticParams() {
 	const response = await fetch(
@@ -28,9 +28,9 @@ const page = async ({ params }) => {
 
 	return (
 		<div className="single-blog-page">
-			<h2>{post.title.rendered}</h2>
+			<h2 className={styles.singleBlogPage__title}>{post.title.rendered}</h2>
 			<div className="blog-post">
-				<p dangerouslySetInnerHTML={{ __html: post.content.rendered }}></p>
+				<div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
 			</div>
 		</div>
 	);
