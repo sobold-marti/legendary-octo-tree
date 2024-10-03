@@ -1,13 +1,13 @@
 import styles from './style.module.scss';
 
-const TextImage = ({ heading, text, imageUrl }) => {
+export default function TextImage({ heading, text, imageUrl }) {
   return (
     <section className="text-image">
-      <div className="text-image__container container container mx-auto px-4">
+      <div className="text-image__container container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           {(heading || text) && (
-            <div className="text-image__content col-span-12 md:col-span-6">
-              <h2 className={`${styles.textImage__heading} text-image__heading text-3xl`}>{heading}</h2>
+            <div className={`${styles.textImage__content} col-span-12 md:col-span-6`}>
+              <h2 className={`${styles.textImage__heading} text-3xl`}>{heading}</h2>
               <p className="text-image__text">{text}</p>
             </div>
           )}
@@ -21,5 +21,3 @@ const TextImage = ({ heading, text, imageUrl }) => {
     </section>
   );
 };
-
-export default TextImage;

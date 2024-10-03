@@ -28,9 +28,11 @@ const page = async ({ params }) => {
 
 	return (
 		<div className="single-blog-page">
-			<h2 className={styles.singleBlogPage__title}>{post.title.rendered}</h2>
-			<div className="blog-post">
-				<div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+			<div className="container">
+				<h2 className={styles.singleBlogPage__title}>{post.title.rendered}</h2>
+				<div className="blog-post">
+					<div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+				</div>
 			</div>
 		</div>
 	);

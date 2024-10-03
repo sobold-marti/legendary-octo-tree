@@ -2,4 +2,10 @@
     &__heading {
         margin-bottom: 2rem;
     }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }

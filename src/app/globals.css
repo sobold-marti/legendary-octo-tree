@@ -26,14 +26,14 @@ nav .logo {
   padding: 20px;
 }
 
-.navbar {
+/* .navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   height: 80px;
-}
+} */
 
 nav ul {
   display: flex;
