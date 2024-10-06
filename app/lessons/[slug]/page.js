@@ -1,4 +1,4 @@
-import Text from "@/app/components/blocks/Text";
+import Text from "../../components/blocks/Text";
 
 export async function generateStaticParams() {
     // Fetch all lessons to generate the paths based on slugs
