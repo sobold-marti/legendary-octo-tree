@@ -5,7 +5,8 @@ import styles from './style.module.scss';
 
 const NavLinks = [
 	{ id: 1, name: 'Home', path: '/' },
-	{ id: 2, name: 'Blog', path: '/blog' },
+	{ id: 3, name: 'Lessons', path: '/lessons' },
+	{ id: 2, name: 'Blog', path: '/blog' }
 ];
 
 export default function Navigation({siteLogo}) {

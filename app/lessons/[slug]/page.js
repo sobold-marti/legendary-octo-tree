@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Text from "../../components/blocks/Text";
 
 export async function generateStaticParams() {
@@ -80,8 +81,8 @@ export default async function LessonPage({ params }) {
 
     return (
         <div className="container">
-            <p>Page inside [slug]</p>
 			<Text heading={headingTb} text={textTb} />
+            <Link href="" />
         </div>
     );
 }
