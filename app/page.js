@@ -1,7 +1,7 @@
 import './globals.css';
 import './index.css';
-import TextImage from './components/blocks/TextImage';
-import Text from './components/blocks/Text';
+import TextImage from '../components/blocks/TextImage';
+import Text from '../components/blocks/Text';
 
 export const metadata = {
   title: 'Create Next App',

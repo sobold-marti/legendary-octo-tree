@@ -1,7 +1,7 @@
 import './globals.css';
 import './index.css';
-import Navigation from "./components/layouts/Navigation";
-import Footer from './components/layouts/Footer';
+import Navigation from "../components/layouts/Navigation";
+import Footer from '../components/layouts/Footer';
 
 export const metadata = {
   title: 'Next.js',
