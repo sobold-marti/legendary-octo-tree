@@ -14,9 +14,9 @@ export default async function RootLayout({ children }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             query: `
-            query {
-                siteLogo
-            }
+                query {
+                    siteLogo
+                }
             `,
         }),
     });
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }) {
         <html lang="en">
             <body>
                 <Navigation siteLogo={siteLogo} />
-                {children}
+                    {children}
                 <Footer />
             </body>
         </html>

@@ -82,7 +82,9 @@ export default async function LessonPage({ params }) {
     return (
         <div className="container">
 			<Text heading={headingTb} text={textTb} />
-            <Link href="" />
+            <Link href="" className="post" key="">
+                Child
+            </Link>
         </div>
     );
 }
