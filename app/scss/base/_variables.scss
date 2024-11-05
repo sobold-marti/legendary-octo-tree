@@ -1,0 +1,52 @@
+//* Headings
+$primary-font: 'Lato', sans-serif;
+
+%h1 {
+    @include typography(3.5rem, 4rem, $primary-font);
+    font-weight: 700;
+    letter-spacing: -.05px;
+    text-transform: initial;
+
+    // @include respond('sm') {
+    //     @include typography(3rem, 3.5rem);
+    // }
+}
+
+%h2 {
+    @include typography(2.6rem, 2.9rem, $primary-font);
+    font-weight: 300;
+    letter-spacing: .10px;
+    text-transform: initial;
+
+    // @include respond('sm') {
+    //     @include typography(2.1rem, 2.6rem);
+    // }
+}
+
+%h3 {
+    @include typography(2.4rem, 2.9rem, $primary-font);
+    font-weight: 700;
+    letter-spacing: -.04px;
+    text-transform: initial;
+}
+
+%h4 {
+    @include typography(2.6rem, 2.6rem, $primary-font);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: initial;
+}
+
+%h5 {
+    @include typography(1.8rem, 2.2rem, $primary-font);
+    font-weight: 700;
+    letter-spacing: .10px;
+    text-transform: uppercase;
+}
+
+%h6 {
+    @include typography(1.6rem, 2rem, $primary-font);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
