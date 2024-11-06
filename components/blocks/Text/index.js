@@ -1,3 +1,5 @@
+import styles from './style.module.scss';
+
 export default function Text({ heading, text }) {
   return (
     <section className="text">
@@ -5,7 +7,7 @@ export default function Text({ heading, text }) {
         <div className="grid">
           {(heading || text) && (
             <div>
-              <h2>{heading}</h2>
+              <h2 className={`${styles.text__heading}`}>{heading}</h2>
               <p className="text__text">{text}</p>
             </div>
           )}

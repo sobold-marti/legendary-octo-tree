@@ -1,4 +1,5 @@
 'use client';
+import './scss/base/__index.scss'; 
 import './globals.css';
 import './index.css';
 import { Lato } from 'next/font/google';

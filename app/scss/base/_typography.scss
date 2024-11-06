@@ -27,3 +27,15 @@ h6,
 .h6 {
     @extend %h6;
 }
+
+.body-1 {
+    @extend %body-1;
+}
+
+.body-2 {
+    @extend %body-2;
+}
+
+.caption {
+    @extend %caption;
+}

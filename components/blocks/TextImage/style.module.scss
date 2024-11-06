@@ -1,11 +1,17 @@
 .textImage {
     &__heading {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
     &__content {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    &__image {
+        img {
+            width: 100%;
+        }
     }
 }

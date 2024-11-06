@@ -2,8 +2,8 @@
 $primary-font: 'Lato', sans-serif;
 
 %h1 {
-    @include typography(3.5rem, 4rem, $primary-font);
-    font-weight: 700;
+    @include typography(4rem, 4.4, $primary-font);
+    font-weight: 500;
     letter-spacing: -.05px;
     text-transform: initial;
 
@@ -13,8 +13,8 @@ $primary-font: 'Lato', sans-serif;
 }
 
 %h2 {
-    @include typography(2.6rem, 2.9rem, $primary-font);
-    font-weight: 300;
+    @include typography(3.5rem, 3.9, $primary-font);
+    font-weight: 500;
     letter-spacing: .10px;
     text-transform: initial;
 
@@ -24,29 +24,41 @@ $primary-font: 'Lato', sans-serif;
 }
 
 %h3 {
-    @include typography(2.4rem, 2.9rem, $primary-font);
-    font-weight: 700;
+    @include typography(2.5rem, 3rem, $primary-font);
+    font-weight: 500;
     letter-spacing: -.04px;
     text-transform: initial;
 }
 
 %h4 {
-    @include typography(2.6rem, 2.6rem, $primary-font);
-    font-weight: 700;
+    @include typography(2.3rem, 2.76rem, $primary-font);
+    font-weight: 500;
     letter-spacing: 0;
     text-transform: initial;
 }
 
 %h5 {
-    @include typography(1.8rem, 2.2rem, $primary-font);
-    font-weight: 700;
+    @include typography(2.1rem, 2.52rem, $primary-font);
+    font-weight: 500;
     letter-spacing: .10px;
     text-transform: uppercase;
 }
 
 %h6 {
-    @include typography(1.6rem, 2rem, $primary-font);
-    font-weight: 400;
+    @include typography(1.9rem, 2.3rem, $primary-font);
+    font-weight: 500;
     letter-spacing: 0;
     text-transform: uppercase;
+}
+
+%body-1 {
+    @include typography(1.8rem, 2.2, $primary-font);
+}
+
+%body-2 {
+    @include typography(1.6rem, 1.7rem, $primary-font);
+}
+
+%caption {
+    @include typography(1.4rem, 1.5rem, $primary-font);
 }

@@ -1,4 +1,5 @@
 import styles from './page.module.scss';
+import Loading from '../../../components/layouts/Loading';
 
 export async function generateStaticParams() {
 	const response = await fetch(
@@ -23,7 +24,7 @@ const page = async ({ params }) => {
 	const post = await getSinglePost(params.postId);
 
 	if (!post) {
-		return <div>Loading...</div>;
+		return <Loading />
 	}
 
 	return (

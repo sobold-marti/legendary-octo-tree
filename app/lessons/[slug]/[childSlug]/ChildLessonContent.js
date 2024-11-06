@@ -1,6 +1,8 @@
 'use client';
 import Text from "../../../../components/blocks/Text";
+import Loading from "../../../../components/layouts/Loading";
 import { gql, useQuery } from "@apollo/client";
+import styles from './style.module.scss';
 
 const GET_LESSON_WITH_CHILDREN = gql`
     query GetLessonWithChildren($slug: ID!) {
@@ -43,8 +45,19 @@ export default function ChildLessonPage({ slug, childSlug }) {
         variables: { slug, childSlug }
     });
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+    if (loading) {
+        return (
+            <Loading />
+        );
+    }
+    
+    if (error) {
+        return (
+            <div className="container">
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
 
     // Check if the parent lesson exists
     if (!data || !data.lesson) {
@@ -53,10 +66,11 @@ export default function ChildLessonPage({ slug, childSlug }) {
 
     // Find the specific child lesson based on the childSlug
     const parentLesson = data.lesson;
+    const lessonSlug = parentLesson.children.nodes[0].slug;
     const childLesson = parentLesson.children.nodes.find(child => child.slug === childSlug);
 
     if (!childLesson) {
-        return <div>No child lesson found for the provided slug.</div>;
+        return <div className="container">No child lesson found for the provided slug.</div>;
     }
 
     // Extract content and blocks for parent and child
@@ -67,15 +81,15 @@ export default function ChildLessonPage({ slug, childSlug }) {
     const { headingTb: childHeading, textTb: childText } = childTextBlock?.attributes || {};
 
     return (
-        <div className="container">
+        <div className={`${lessonSlug} ${styles.childLesson}`}>
             {/* Parent Content */}
-            <div className="parent-content">
+            <div className={`${styles.childLesson__parentContent} parent-content`}>
                 <h1>{parentLesson.title} (Parent)</h1>
                 <Text heading={parentHeading} text={parentText} />
             </div>
 
             {/* Child Content */}
-            <div className="child-content">
+            <div className={`${styles.childLesson__childContent} child-content`}>
                 <h1>{childLesson.title} (Child)</h1>
                 <Text heading={childHeading} text={childText} />
             </div>

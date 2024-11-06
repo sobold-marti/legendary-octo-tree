@@ -1,0 +1,7 @@
+@function get-value($n) {
+    @return $n / ($n * 0 + 1);
+}
+
+@function get-line-height($font-size, $line-height) {
+    @return get-value($line-height / $font-size);
+}

@@ -1,6 +1,7 @@
 'use client';
 import Link from "next/link";
 import Text from "../../../components/blocks/Text";
+import Loading from "../../../components/layouts/Loading";
 import { gql, useQuery } from "@apollo/client";
 
 const GET_LESSON = gql`
@@ -33,17 +34,32 @@ export default function LessonContent({ slug }) {
     const { data, loading, error } = useQuery(GET_LESSON, {
         variables: { slug }
     });
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
     const blocks = data?.lesson?.blocks;
-    const textBlock = blocks.find(block => block.__typename === 'CustomTextBlock');
-    const { headingTb, textTb } = textBlock?.attributes || {};
+
+    if (loading) {
+        return (
+            <Loading />
+        );
+    }
+    
+    if (error) {
+        return (
+            <div className="container">
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
 
     if (!blocks) {
-        return <div>There's no content in this lesson.</div>;
+        return (
+            <div className="container">
+                <p>There's no content in this lesson.</p>
+            </div>
+        );
     }
+
+    const textBlock = blocks.find(block => block.__typename === 'CustomTextBlock');
+    const { headingTb, textTb } = textBlock?.attributes || {};
 
     return (
         <div className="container">

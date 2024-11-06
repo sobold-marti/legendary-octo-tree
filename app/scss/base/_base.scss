@@ -1,0 +1,22 @@
+html {
+    position: relative;
+}
+
+body {
+    @extend %body-1;
+}
+
+ul {
+    &.list-style {
+        margin-left: 2rem;
+        margin-bottom: 2rem;
+    
+        li {
+            margin-bottom: 1rem;
+    
+            ul {
+                margin-top: 1rem;
+            }
+        }
+    }
+}

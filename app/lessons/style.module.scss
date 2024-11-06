@@ -1,10 +1,10 @@
 .lessonsOverview {
-    &__parentList,
-    &__childrenList {
-        list-style-type: disc;
+    &__heading {
+        margin-bottom: 2rem;
     }
     
+    &__parentList,
     &__childrenList {
-        margin-left: 2rem;
+        
     }
 }
