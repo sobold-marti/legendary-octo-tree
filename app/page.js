@@ -1,69 +1,36 @@
 'use client';
-import TextImage from '../components/blocks/TextImage';
-import Text from '../components/blocks/Text';
-import TeamRollup from '../components/blocks/TeamRollup';
 import Loading from '../components/layouts/Loading';
-import { gql, useQuery } from "@apollo/client";
-
-const GET_BLOCKS = gql`
-	query GetBlocks {
-		page(id: "home", idType: URI) {
-			blocks {
-				__typename
-				... on CustomTextImageBlock {
-					attributes {
-						heading
-						text
-						imageUrl
-					}
-				}
-				... on CustomTextBlock {
-					attributes {
-						headingTb
-						textTb
-					}
-				}
-				... on CustomTeamRollupBlock {
-					attributes {
-						headingTr
-						teamSelect
-					}
-				}
-			}
-		}
-	}
-`;
+import { useQuery } from "@apollo/client";
+import { BLOCK_COMPONENTS, GET_BLOCKS } from '../components/blocks/blockComponents';
 
 export default function Page() { 
-	const {data, loading, error} = useQuery(GET_BLOCKS);
+    const { data, loading, error } = useQuery(GET_BLOCKS);
 
-	if (loading) {
-		return (
-			<Loading />
-		);
-	}
-  
-	if (error) {
-	  return (
-		  <div className="container">
-			  <p>Error: {error.message}</p>
-		  </div>
-	  );
-	}
+    if (loading) return <Loading />;
+    if (error) return <div className="container"><p>Error: {error.message}</p></div>;
 
-	const blocks = data?.page?.blocks;
-	const textImageBlock = blocks.find(block => block.__typename === 'CustomTextImageBlock');
-	const textBlock = blocks.find(block => block.__typename === 'CustomTextBlock');
-	const teamRollup = blocks.find(block => block.__typename === 'CustomTeamRollupBlock');
-	const { heading, text, imageUrl } = textImageBlock?.attributes || {};
-	const { headingTb, textTb } = textBlock?.attributes || {};
-	const { headingTr, teamSelect } = teamRollup?.attributes || {};
+    const blocks = data?.page?.blocks || [];
 
-	return (
-		<div className="content">
-			<Text heading={headingTb} text={textTb} />
-			<TextImage heading={heading} text={text} imageUrl={imageUrl} />
-			<TeamRollup heading={headingTr} teamSelect={teamSelect} />
-		</div>
-	);
+    return (
+        <div className="content">
+            {blocks.map((block, index) => {
+                // Get the component based on the typename
+                const BlockComponent = BLOCK_COMPONENTS[block.__typename];
+
+                // Only render if the component exists in the map
+                if (BlockComponent) {
+                    return (
+                        <BlockComponent
+                            key={index}
+                            {...block.attributes} // Pass attributes as props
+                        />
+                    );
+                }
+
+                // Optionally handle unknown block types
+                console.warn(`Unknown block type: ${block.__typename}`);
+                return null;
+            })}
+        </div>
+    );
 }

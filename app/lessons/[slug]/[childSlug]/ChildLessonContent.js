@@ -85,13 +85,13 @@ export default function ChildLessonPage({ slug, childSlug }) {
             {/* Parent Content */}
             <div className={`${styles.childLesson__parentContent} parent-content`}>
                 <h1>{parentLesson.title} (Parent)</h1>
-                <Text heading={parentHeading} text={parentText} />
+                <Text headingTb={parentHeading} textTb={parentText} />
             </div>
 
             {/* Child Content */}
             <div className={`${styles.childLesson__childContent} child-content`}>
                 <h1>{childLesson.title} (Child)</h1>
-                <Text heading={childHeading} text={childText} />
+                <Text headingTb={childHeading} textTb={childText} />
             </div>
         </div>
     );

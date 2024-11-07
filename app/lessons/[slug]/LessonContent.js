@@ -63,7 +63,7 @@ export default function LessonContent({ slug }) {
 
     return (
         <div className="container mx-auto px-4">
-            <Text heading={headingTb} text={textTb} />
+            <Text headingTb={headingTb} textTb={textTb} />
             <Link href="" className="post" key="">
                 Child
             </Link>

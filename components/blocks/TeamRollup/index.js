@@ -26,7 +26,7 @@ function decodeId(base64Id) {
   return parseInt(numericId, 10);
 }
 
-export default function TeamRollup({ heading, teamSelect }) {
+export default function TeamRollup({ headingTr, teamSelect }) {
   // Convert `teamSelect` to an array if it's a string
   const parsedTeamSelect = typeof teamSelect === 'string' ? JSON.parse(teamSelect) : teamSelect;
   // Ensure `parsedTeamSelect` is an array
@@ -52,7 +52,7 @@ export default function TeamRollup({ heading, teamSelect }) {
   return (
     <section className={`${styles.teamRollup}`}>
       <div className="container mx-auto px-4">
-        {heading && <h2 className={`${styles.teamRollup__heading}`}>{heading}</h2>}
+        {headingTr && <h2 className={`${styles.teamRollup__heading}`}>{headingTr}</h2>}
         <div className="grid grid-cols-12 gap-4">
           {teamMembers.map((member) => (
             <div
@@ -63,7 +63,7 @@ export default function TeamRollup({ heading, teamSelect }) {
                 <img
                   src={member.featuredImage.node.sourceUrl}
                   alt={member.title}
-                  className="w-full h-auto mb-4 rounded-lg"
+                  className={`${styles.teamRollup__image} w-full h-auto mb-4 rounded-lg`}
                 />
               )}
               <h4 className="mb-2">{member.title}</h4>
