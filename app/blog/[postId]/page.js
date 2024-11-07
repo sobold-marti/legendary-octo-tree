@@ -1,5 +1,5 @@
-import styles from './page.module.scss';
 import Loading from '../../../components/layouts/Loading';
+import styles from './style.module.scss';
 
 export async function generateStaticParams() {
 	const response = await fetch(
@@ -28,9 +28,9 @@ const page = async ({ params }) => {
 	}
 
 	return (
-		<div className="single-blog-page">
-			<div className="container">
-				<h2 className={styles.singleBlogPage__title}>{post.title.rendered}</h2>
+		<div className={styles.singleBlogPage}>
+			<div className="container mx-auto px-4">
+				<h2 className={styles.singleBlogPage__heading}>{post.title.rendered}</h2>
 				<div className="blog-post">
 					<div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
 				</div>
