@@ -44,7 +44,7 @@ export default function LessonContent({ slug }) {
     
     if (error) {
         return (
-            <div className="container">
+            <div className="container mx-auto px-4">
                 <p>Error: {error.message}</p>
             </div>
         );
@@ -52,7 +52,7 @@ export default function LessonContent({ slug }) {
 
     if (!blocks) {
         return (
-            <div className="container">
+            <div className="container mx-auto px-4">
                 <p>There's no content in this lesson.</p>
             </div>
         );
@@ -62,7 +62,7 @@ export default function LessonContent({ slug }) {
     const { headingTb, textTb } = textBlock?.attributes || {};
 
     return (
-        <div className="container">
+        <div className="container mx-auto px-4">
             <Text heading={headingTb} text={textTb} />
             <Link href="" className="post" key="">
                 Child

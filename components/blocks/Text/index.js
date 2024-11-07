@@ -2,7 +2,7 @@ import styles from './style.module.scss';
 
 export default function Text({ heading, text }) {
   return (
-    <section className="text">
+    <section className={`${styles.text}`}>
       <div className="text__container container mx-auto px-4">
         <div className="grid">
           {(heading || text) && (

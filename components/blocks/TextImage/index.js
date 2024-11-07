@@ -2,7 +2,7 @@ import styles from './style.module.scss';
 
 export default function TextImage({ heading, text, imageUrl }) {
   return (
-    <section className="text-image">
+    <section className={`${styles.textImage}`}>
       <div className="text-image__container container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           {(heading || text) && (

@@ -53,7 +53,7 @@ export default function ChildLessonPage({ slug, childSlug }) {
     
     if (error) {
         return (
-            <div className="container">
+            <div className="container mx-auto px-4">
                 <p>Error: {error.message}</p>
             </div>
         );
@@ -70,7 +70,7 @@ export default function ChildLessonPage({ slug, childSlug }) {
     const childLesson = parentLesson.children.nodes.find(child => child.slug === childSlug);
 
     if (!childLesson) {
-        return <div className="container">No child lesson found for the provided slug.</div>;
+        return <div className="container mx-auto px-4">No child lesson found for the provided slug.</div>;
     }
 
     // Extract content and blocks for parent and child
