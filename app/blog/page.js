@@ -1,33 +1,46 @@
+// blog/page.js
+'use client';
+
+import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
 import styles from './style.module.scss';
 
-async function getPosts() {
-	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/posts`
-	);
-	const posts = await response.json();
-	return posts;
+// Define GraphQL query for fetching all posts
+const GET_POSTS = gql`
+  query GetPosts {
+    posts {
+      nodes {
+        id
+        title
+        excerpt
+        slug
+      }
+    }
+  }
+`;
+
+export default function BlogPage() {
+  const { loading, error, data } = useQuery(GET_POSTS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const posts = data.posts.nodes;
+
+  return (
+    <div className={styles.blogPage}>
+      <div className="container mx-auto px-4">
+        <h2>All Blog Posts</h2>
+        <p>All blog posts are fetched from WordPress via the GraphQL API.</p>
+        <div className={styles.blogPage__posts}>
+          {posts.map((post) => (
+            <Link href={`/blog/${post.slug}`} className={styles.blogPage__post} key={post.id}>
+              <h3>{post.title}</h3>
+              <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-export default async function BlogPage() {
-	const posts = await getPosts();
-
-	return (
-		<div className={styles.blogPage}>
-			<div className="container mx-auto px-4">
-				<h2>All Blog Posts</h2>
-				<p>All blog posts are fetched from WordPress via the WP REST API.</p>
-				<div className={styles.blogPage__posts}>
-					{posts.map((post) => {
-						return (
-							<Link href={`/blog/${post.id}`} className={styles.blogPage__post} key={post.id}>
-								<h3>{post.title.rendered}</h3>
-								<div dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}></div>
-							</Link>
-						);
-					})}
-				</div>
-			</div>
-		</div>
-	);
-};

@@ -1,42 +1,28 @@
-import Loading from '../../../components/layouts/Loading';
-import styles from './style.module.scss';
+import { gql } from '@apollo/client';
+import client from '../../../lib/apolloClient';
+import SinglePostContent from './singlePostContent';
+
+// GraphQL query to get all post slugs for generating paths
+const GET_POSTS_IDS = gql`
+  query GetPostsIds {
+    posts {
+      nodes {
+        slug
+      }
+    }
+  }
+`;
 
 export async function generateStaticParams() {
-	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/posts`
-	);
-	const posts = await response.json();
+  const { data } = await client.query({
+    query: GET_POSTS_IDS,
+  });
 
-	return posts.map((post) => ({
-		postId: post.id.toString(),
-	}));
+  return data.posts.nodes.map((post) => ({
+    postId: post.slug,
+  }));
 }
 
-async function getSinglePost(postId) {
-	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/posts/${postId}`
-	);
-	const post = await response.json();
-	return post;
+export default function Page({ params }) {
+  return <SinglePostContent slug={params.postId} />;
 }
-
-const page = async ({ params }) => {
-	const post = await getSinglePost(params.postId);
-
-	if (!post) {
-		return <Loading />
-	}
-
-	return (
-		<div className={styles.singleBlogPage}>
-			<div className="container mx-auto px-4">
-				<h2 className={styles.singleBlogPage__heading}>{post.title.rendered}</h2>
-				<div className="blog-post">
-					<div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
-				</div>
-			</div>
-		</div>
-	);
-};
-
-export default page;
