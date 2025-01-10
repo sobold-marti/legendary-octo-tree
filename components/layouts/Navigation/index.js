@@ -4,30 +4,54 @@ import { usePathname } from 'next/navigation';
 import { gql, useQuery } from "@apollo/client";
 import styles from './style.module.scss';
 
-// Define the GraphQL query to fetch siteLogo
-const GET_SITE_LOGO = gql`
-  query GetSiteLogo {
+const GET_NAVIGATION_MENU = gql`
+  query GetNavigationMenu {
     siteLogo
+    menu(id: "header-navigation", idType: SLUG) {
+      menuItems {
+        nodes {
+          id
+          label
+          url
+        }
+      }
+    }
   }
 `;
 
-const NavLinks = [
-  { id: 1, name: 'Home', path: '/' },
-  { id: 3, name: 'Lessons', path: '/lessons' },
-  { id: 2, name: 'Blog', path: '/blog' }
-];
-
 export default function Navigation() {
-  const pathname = usePathname();
-  const isActive = (path) => path === pathname;
+  const pathname = usePathname() + '/'; // Add slash at the end of pathname to match
+  const isActive = (url) => {
+    // Check if the URL is relative
+    if (url.startsWith('/')) {
+      // If it's relative, compare with the current pathname
+      return pathname === url;
+    }
+
+    // Handle full URLs: remove the domain part, then compare
+    const sanitizedUrl = url.replace(process.env.NEXT_PUBLIC_WORDPRESS_API_BASE_URL, '');
+    return pathname === sanitizedUrl;
+  };
 
   // Fetch siteLogo with Apollo's useQuery
-  const { data, loading, error } = useQuery(GET_SITE_LOGO);
+  const { data, loading, error } = useQuery(GET_NAVIGATION_MENU);
 
   if (loading) return null; // or add a loading spinner if preferred
   if (error) return <p>Error loading logo</p>;
 
   const siteLogo = data.siteLogo || '/fallback-logo.png'; // Optional fallback
+  const menuItems = data.menu?.menuItems?.nodes || [];
+
+  const sanitizeUrl = (url) => {
+    // If the URL is relative (starts with '/'), return it as is
+    if (url.startsWith('/')) {
+      return url;
+    }
+
+    // Otherwise, handle full URLs
+    const wpDomain = process.env.NEXT_PUBLIC_WORDPRESS_API_BASE_URL || '';
+    return url.replace(wpDomain, ''); // Strip out the WordPress domain if needed
+  };
 
   return (
     <nav>
@@ -37,13 +61,13 @@ export default function Navigation() {
             <img src={siteLogo} alt="Site Logo" />
           </Link>
           <ul>
-            {NavLinks.map((link) => (
-              <li key={link.id}>
+            {menuItems.map((item) => (
+              <li key={item.id}>
                 <Link
-                  href={link.path}
-                  className={isActive(link.path) ? 'active' : ''}
+                  href={sanitizeUrl(item.url)}
+                  className={isActive(item.url) ? 'active' : ''}
                 >
-                  {link.name}
+                  {item.label}
                 </Link>
               </li>
             ))}
