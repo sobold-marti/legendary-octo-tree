@@ -8,7 +8,10 @@ export default function Text({ headingTb, textTb }) {
           {(headingTb || textTb) && (
             <div>
               <h2 className={`${styles.text__heading}`}>{headingTb}</h2>
-              <p className="text__text">{textTb}</p>
+              <p
+                className="text__text"
+                dangerouslySetInnerHTML={{ __html: textTb }}
+              ></p>
             </div>
           )}
         </div>
