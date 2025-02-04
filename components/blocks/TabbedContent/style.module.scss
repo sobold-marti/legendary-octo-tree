@@ -1,16 +1,21 @@
+@use "../../../app/scss/base/variables" as *;
+
 .tabbedContent {
     padding: 5rem 0;
 
-    &__container {
-
-    }
-
     &__navigation {
-
+        margin-bottom: 3rem;
+    }
+    
+    &__tab {
+        margin-right: 2rem;
     }
 
-    &__tab {
-        background-color: transparent;
-        border: 0;
+    &__inner {
+        ul {
+            li {
+                margin-bottom: 1rem;
+            }
+        }
     }
 }

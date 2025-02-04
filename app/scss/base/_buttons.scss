@@ -1,0 +1,22 @@
+@use '../base/variables' as *;
+@use 'mixins';
+
+.tab {
+    @include mixins.typography(1.8rem, 2rem);
+    color: $grey-1;
+    
+    &.active {
+        position: relative;
+        color: $blue-1;
+        
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            bottom: -1rem;
+            background-color: $blue-1;
+        }
+    }
+}
