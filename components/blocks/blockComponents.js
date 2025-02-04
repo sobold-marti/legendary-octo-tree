@@ -15,8 +15,8 @@ const BLOCK_COMPONENTS = {
 
 // Define and export the GraphQL query
 const GET_BLOCKS = gql`
-    query GetBlocks {
-        page(id: "home", idType: URI) {
+    query GetBlocksBySlug($slug: ID!) {
+        page(id: $slug, idType: URI) {
             blocks {
                 __typename
                 ... on CustomTextImageBlock {
