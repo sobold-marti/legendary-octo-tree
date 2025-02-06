@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import client from '../../../lib/apolloClient';
-import SinglePostContent from './singlePostContent';
+import SinglePostContent from './SinglePostContent';
 
 // GraphQL query to get all post slugs for generating paths
 const GET_POSTS_IDS = gql`

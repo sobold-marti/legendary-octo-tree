@@ -11,16 +11,15 @@ const GET_PAGE_ID = gql`
   }
 `;
 
-export default function PageHeroWrapper() {
+export default function HeroWrapper() {
   const pathname = usePathname();
   const slug = pathname === "/" ? "/" : pathname.replace(/^\/|\/$/g, "");
 
-  const { data, loading, error } = useQuery(GET_PAGE_ID, {
+  const { data, error } = useQuery(GET_PAGE_ID, {
     variables: { slug },
     skip: !slug,
   });
 
-  if (loading) return null;
   if (error) {
     console.error("Error fetching page ID:", error);
     return null;

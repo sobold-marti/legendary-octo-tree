@@ -1,4 +1,3 @@
-// This file is server-only (NO "use client")
 import BlocksRenderer from '../../components/blocks/BlocksRenderer';
 
 export async function generateStaticParams() {
