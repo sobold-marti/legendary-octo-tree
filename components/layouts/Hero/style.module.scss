@@ -1,0 +1,39 @@
+@use '../../../app/scss/base/variables' as *;
+
+.heroImage {
+    position: relative;
+    background-color: $teal-1;
+    color: $white-1;
+    
+    &__heading {
+        margin-bottom: 2rem;
+    }
+
+    &__subheading {
+        margin: 0 auto 2rem;
+    }
+
+    &__text {
+        padding: 8rem 0;
+    }
+
+    &__image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+.heroStandard {
+    background-color: $teal-1;
+    color: $white-1;
+
+    &__text {
+        padding: 8rem 0;
+    }
+}

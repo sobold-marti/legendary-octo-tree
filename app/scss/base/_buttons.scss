@@ -20,3 +20,13 @@
         }
     }
 }
+
+.button {
+    &--primary {
+        background-color: $yellow-1;
+        padding: 1rem 2rem;
+        display: inline-block;
+        border-radius: 5rem;
+        font-weight: 500;
+    }
+}
