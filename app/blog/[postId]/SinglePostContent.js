@@ -1,7 +1,5 @@
-'use client';
-
-import { gql, useQuery } from '@apollo/client';
-import Loading from '../../../components/layouts/Loading';
+import client from '../../../lib/apolloClient';
+import { gql } from '@apollo/client';
 import styles from './style.module.scss';
 
 // GraphQL query to fetch a single post by its slug
@@ -14,15 +12,17 @@ const GET_SINGLE_POST = gql`
   }
 `;
 
-export default function SinglePostContent({slug}) {
-  const { loading, error, data } = useQuery(GET_SINGLE_POST, {
+async function getPost(slug) {
+  const { data } = await client.query({
     variables: { slug },
-  });
+    query: GET_SINGLE_POST
+  })
 
-  if (loading) return <Loading />;
-  if (error) return <p>Error: {error.message}</p>;
+  return data.post;
+}
 
-  const post = data.post;
+export default async function SinglePostContent({slug}) {
+  const post = await getPost(slug);
 
   return (
     <div className={styles.singleBlogPage}>

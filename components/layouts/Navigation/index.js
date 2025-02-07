@@ -1,9 +1,8 @@
-'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import styles from './style.module.scss';
+import client from '../../../lib/apolloClient';
 
 const GET_NAVIGATION_MENU = gql`
   query GetNavigationMenu {
@@ -20,7 +19,14 @@ const GET_NAVIGATION_MENU = gql`
   }
 `;
 
-export default function Navigation() {
+async function getNavigationMenu() {
+  const { data } = await client.query({
+    query: GET_NAVIGATION_MENU
+  })
+  return data;
+}
+
+export default async function Navigation() {
   const pathname = usePathname() + '/'; // Add slash at the end of pathname to match
   const isActive = (url) => {
     // Check if the URL is relative
@@ -34,14 +40,11 @@ export default function Navigation() {
     return pathname === sanitizedUrl;
   };
 
-  // Fetch siteLogo with Apollo's useQuery
-  const { data, loading, error } = useQuery(GET_NAVIGATION_MENU);
+  // Get siteLogo and menu from the query
+  const {siteLogo, menu} = await getNavigationMenu(); 
 
-  if (loading) return null; // or add a loading spinner if preferred
-  if (error) return <p>Error loading logo</p>;
-
-  const siteLogo = data.siteLogo || '/fallback-logo.png'; // Optional fallback
-  const menuItems = data.menu?.menuItems?.nodes || [];
+  const logo = siteLogo || '/fallback-logo.png'; // Optional fallback
+  const menuItems = menu?.menuItems?.nodes || [];
 
   const sanitizeUrl = (url) => {
     // If the URL is relative (starts with '/'), return it as is
@@ -59,7 +62,7 @@ export default function Navigation() {
       <div className="navigation">
         <div className={`${styles.navigation__inner} container`}>
           <Link href="/">
-            <img src={siteLogo} alt="Site Logo" />
+            <img src={logo} alt="Site Logo" />
           </Link>
           <ul>
             {menuItems.map((item) => (

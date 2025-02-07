@@ -1,8 +1,7 @@
-'use client';
-
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Link from 'next/link';
 import styles from './style.module.scss';
+import client from '../../lib/apolloClient';
 
 // Define GraphQL query for fetching all posts
 const GET_POSTS = gql`
@@ -18,13 +17,16 @@ const GET_POSTS = gql`
   }
 `;
 
-export default function BlogPage() {
-  const { loading, error, data } = useQuery(GET_POSTS);
+async function getPosts() {
+  const { data } = await client.query({
+    query: GET_POSTS
+  })
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  return data.posts.nodes;
+}
 
-  const posts = data.posts.nodes;
+export default async function BlogPage() {
+  const posts = await getPosts();
 
   return (
     <div className={styles.blogPage}>
@@ -35,7 +37,7 @@ export default function BlogPage() {
           {posts.map((post) => (
             <Link href={`/blog/${post.slug}`} className={styles.blogPage__post} key={post.id}>
               <h3>{post.title}</h3>
-              <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
+              <div dangerouslySetInnerHTML={{__html: post.excerpt}}></div>
             </Link>
           ))}
         </div>
