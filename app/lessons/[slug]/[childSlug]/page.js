@@ -1,32 +1,29 @@
+import { gql } from '@apollo/client';
+import client from '../../../../lib/apolloClient';
 import ChildLessonContent from './ChildLessonContent';
 
-export async function generateStaticParams() {
-    // Fetch all lessons with their slugs and child slugs
-    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_BASE_URL}/graphql`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            query: `
-                query GetLessonsWithChildren {
-                    lessons {
-                        nodes {
-                            slug
-                            children {
-                                nodes {
-                                    slug
-                                }
-                            }
-                        }
+const GET_ALL_LESSONS_WITH_CHILDREN = gql`
+    query GetLessonsWithChildren {
+        lessons {
+            nodes {
+                slug
+                children {
+                    nodes {
+                        slug
                     }
                 }
-            `,
-        }),
+            }
+        }
+    }
+`;
+
+export async function generateStaticParams() {
+    // Fetch all lessons with their slugs and child slugs    
+    const { data } = await client.query({
+        query: GET_ALL_LESSONS_WITH_CHILDREN,
     });
 
-    const json = await res.json();
-    const lessons = json.data.lessons.nodes;
+    const lessons = data.lessons.nodes;
 
     // Generate static paths for both parent and child slugs
     let paths = [];

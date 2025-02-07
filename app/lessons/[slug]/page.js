@@ -1,24 +1,23 @@
+import { gql } from '@apollo/client';
+import client from '../../../lib/apolloClient';
 import LessonContent from "./LessonContent";
 
+const GET_ALL_LESSONS = gql`
+    query GetAllLessons {
+        lessons {
+            nodes {
+                slug
+            }
+        }
+    }
+`;
+
 export async function generateStaticParams() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_BASE_URL}/graphql`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            query: `
-                query GetAllLessons {
-                    lessons {
-                        nodes {
-                            slug
-                        }
-                    }
-                }
-            `,
-        }),
+    const { data } = await client.query({
+        query: GET_ALL_LESSONS,
     });
 
-    const json = await res.json();
-    const lessons = json?.data?.lessons?.nodes || [];
+    const lessons = data?.lessons?.nodes || [];
 
     return lessons.map((lesson) => ({
         slug: lesson.slug,

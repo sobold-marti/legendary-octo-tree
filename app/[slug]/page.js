@@ -17,7 +17,7 @@ export async function generateStaticParams() {
         query: GET_ALL_PAGES,
     });
 
-    return data.pages.nodes.map((page) => ({
+    return data?.pages?.nodes.map((page) => ({
         slug: page.slug, // Slug for dynamic routes
     }));
 }
