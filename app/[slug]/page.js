@@ -1,23 +1,21 @@
+import { gql } from '@apollo/client';
+import client from '../../lib/apolloClient';
 import BlocksRenderer from '../../components/blocks/BlocksRenderer';
 
-export async function generateStaticParams() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_BASE_URL}/graphql`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            query: `
-                query GetAllPages {
-                    pages {
-                        nodes {
-                            slug
-                        }
-                    }
-                }
-            `,
-        }),
-    });
+const GET_ALL_PAGES = gql`
+    query GetAllPages {
+        pages {
+            nodes {
+                slug
+            }
+        }
+    }
+`;
 
-    const { data } = await response.json();
+export async function generateStaticParams() {
+    const { data } = await client.query({
+        query: GET_ALL_PAGES,
+    });
 
     return data.pages.nodes.map((page) => ({
         slug: page.slug, // Slug for dynamic routes

@@ -1,4 +1,5 @@
 'use client';
+
 import Link from "next/link";
 import styles from "./style.module.scss";
 import { gql, useQuery } from "@apollo/client";

@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import { useQuery, gql } from "@apollo/client";
 import { usePathname } from "next/navigation";
 import Hero from "../Hero";

@@ -1,4 +1,3 @@
-// blog/page.js
 'use client';
 
 import { gql, useQuery } from '@apollo/client';

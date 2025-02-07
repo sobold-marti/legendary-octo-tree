@@ -1,4 +1,5 @@
 'use client';
+
 import Text from "../../../../components/blocks/Text";
 import Loading from "../../../../components/layouts/Loading";
 import { gql, useQuery } from "@apollo/client";

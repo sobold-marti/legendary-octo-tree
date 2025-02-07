@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import { useQuery, gql } from "@apollo/client";
 import style from './style.module.scss';
 
@@ -34,8 +35,6 @@ export default function Hero({ pageId }) {
     heroButtonUrl,
     heroImage 
   } = data?.page || {};
-
-  console.log(data);
 
   if (heroType === 'image') {
       return (

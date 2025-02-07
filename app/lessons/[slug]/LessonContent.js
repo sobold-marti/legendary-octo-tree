@@ -1,4 +1,5 @@
 'use client';
+
 import Link from "next/link";
 import Text from "../../../components/blocks/Text";
 import Loading from "../../../components/layouts/Loading";

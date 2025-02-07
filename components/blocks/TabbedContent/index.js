@@ -30,7 +30,7 @@ export default function TabbedContent({
       JSON.parse(tabs[1].content || "[]"),
       JSON.parse(tabs[2].content || "[]"),
     ]);
-  }, [tabs]); // Now, tabs is stable and only updates when needed
+  }, [tabs]);
 
   return (
     <section className={`${styles.tabbedContent}`}>

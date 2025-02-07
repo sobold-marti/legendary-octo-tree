@@ -1,4 +1,3 @@
-// blog/[postId]/singlePostContent.js
 'use client';
 
 import { gql, useQuery } from '@apollo/client';
@@ -15,7 +14,7 @@ const GET_SINGLE_POST = gql`
   }
 `;
 
-export default function SinglePostContent({ slug }) {
+export default function SinglePostContent({slug}) {
   const { loading, error, data } = useQuery(GET_SINGLE_POST, {
     variables: { slug },
   });
@@ -30,7 +29,7 @@ export default function SinglePostContent({ slug }) {
       <div className="container mx-auto px-4">
         <h2 className={styles.singleBlogPage__heading}>{post.title}</h2>
         <div className="blog-post">
-          <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+          <div dangerouslySetInnerHTML={{__html: post.content}}></div>
         </div>
       </div>
     </div>

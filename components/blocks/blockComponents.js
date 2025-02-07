@@ -1,4 +1,3 @@
-// components/blocks/blockComponents.js
 import { gql } from "@apollo/client";
 import TextImage from './TextImage';
 import Text from './Text';
