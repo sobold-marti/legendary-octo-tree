@@ -8,7 +8,7 @@ import Navigation from "../components/layouts/Navigation";
 import Footer from '../components/layouts/Footer';
 import { ApolloProvider } from "@apollo/client";
 import client from "../lib/apolloClient";
-import HeroWrapper from '../components/layouts/HeroWrapper';
+import Hero from '../components/layouts/Hero';
 
 const lato = Lato({
   subsets: ['latin'],
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={lato.variable}>
           <Navigation />
-          <HeroWrapper />
+          <Hero />
           {children}
           <Footer />
         </body>
