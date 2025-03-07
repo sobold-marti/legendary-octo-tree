@@ -19,7 +19,7 @@ const GET_HERO_DATA = gql`
   }
 `;
 
-// Query for lesson options (assuming it's a custom post type or global options)
+// Query for lesson options
 const GET_LESSON_HERO_DATA = gql`
   query GetLessonHeroData {
     lessonOptions {
@@ -33,24 +33,55 @@ const GET_LESSON_HERO_DATA = gql`
   }
 `;
 
+// Query for team options
+const GET_TEAM_HERO_DATA = gql`
+  query GetTeamHeroData {
+    teamOptions {
+      heroType
+      heroHeading
+      heroSubheading
+      heroButtonText
+      heroButtonUrl
+      heroImage
+    }
+  }
+`;
+
 export default function Hero() {
   const pathname = usePathname();
   const isLessonsPage = pathname.startsWith("/lessons");
+  const isTeamPage = pathname.startsWith("/team");
   const slug = pathname === "/" ? "/" : pathname.replace(/^\/+|\/+$/g, "");
 
-  // Choose the query based on the pathname
-  const { data, error } = useQuery(isLessonsPage ? GET_LESSON_HERO_DATA : GET_HERO_DATA, {
-    variables: isLessonsPage ? {} : { slug },
-    skip: isLessonsPage ? false : !slug,
-  });
+  
+  // Determine the correct query
+  const { data, error } = useQuery(
+    isLessonsPage
+    ? GET_LESSON_HERO_DATA
+    : isTeamPage
+    ? GET_TEAM_HERO_DATA
+    : GET_HERO_DATA,
+    {
+      variables: isLessonsPage || isTeamPage ? {} : { slug },
+      skip: (isLessonsPage || isTeamPage) ? false : !slug,
+    }
+  );
+  
+
+  console.log(data);
 
   if (error) {
     console.error("Error fetching hero data:", error);
     return <div>Error loading hero data</div>;
   }
 
-  // Handle both queries' structures
-  const page = isLessonsPage ? data?.lessonOptions : data?.pageBy;
+  // Extract the correct page data
+  const page = isLessonsPage
+    ? data?.lessonOptions
+    : isTeamPage
+    ? data?.teamOptions
+    : data?.pageBy;
+
   if (!page) return null;
 
   const {
