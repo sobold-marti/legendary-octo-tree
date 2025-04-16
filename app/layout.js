@@ -4,7 +4,7 @@ import './scss/base/__index.scss';
 import './globals.css';
 import './index.css';
 import { Lato } from 'next/font/google';
-import Navigation from "../components/layouts/Navigation";
+import Navigation from "../components/layouts/Navigation/index";
 import Footer from '../components/layouts/Footer';
 import { ApolloProvider } from "@apollo/client";
 import client from "../lib/apolloClient";

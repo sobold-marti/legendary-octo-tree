@@ -96,20 +96,23 @@ export default function Hero() {
   if (heroType === 'image') {
     return (
       <section className={style.heroImage}>
-        <div className={`${style.heroImage__content} container mx-auto px-4`}>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            <div className={`${style.heroImage__text} col-span-12 md:col-span-6`}>
+        <div className={`${style.heroImage__content} container mx-auto`}>
+          <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-12 md:col-span-6 py-8 px-4">
               <h1 className={style.heroImage__heading}>{heroHeading}</h1>
               <p className={style.heroImage__subheading}>{heroSubheading}</p>
               {heroButtonText && heroButtonUrl && (
                 <a className="button button--primary" href={heroButtonUrl}>{heroButtonText}</a>
               )}
             </div>
-            <div className="col-span-12 md:col-span-6"></div>
+            <div
+              className="col-span-12 md:col-span-6 h-96 md:hidden"
+              style={{ backgroundImage: `url(${heroImage})` }}
+            ></div>
           </div>
         </div>
         <div
-          className={style.heroImage__image}
+          className={`${style.heroImage__image} md:block hidden`}
           style={{ backgroundImage: `url(${heroImage})` }}
         ></div>
       </section>
