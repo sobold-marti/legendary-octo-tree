@@ -1,4 +1,5 @@
 import styles from './style.module.scss';
+import Modal from '../Modal/Modal';
 
 export default function TextImage({ heading, text, imageUrl }) {
   return (
@@ -12,8 +13,12 @@ export default function TextImage({ heading, text, imageUrl }) {
             </div>
           )}
           {imageUrl && (
-            <div className={`${styles.textImage__image} text-image__image col-span-12 md:col-span-6`}>
+            <div className={`${styles.textImage__image} text-image__image col-span-12 md:col-span-6 relative`}>
               <img src={imageUrl} alt="Text and Image Block" />
+              <Modal 
+                text={'Open'} 
+                content={<img src={imageUrl} alt="Text and Image Block" />}
+              />
             </div>
           )}
         </div>

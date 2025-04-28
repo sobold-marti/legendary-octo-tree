@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Navigation({siteLogo, menuItems}) {
-  console.log(menuItems)
   const [navMenu, setNavMenu] = useState(false);
   const pathname = usePathname() + '/'; // Add slash at the end of pathname to match
 
@@ -42,8 +41,6 @@ export default function Navigation({siteLogo, menuItems}) {
     const wpDomain = process.env.NEXT_PUBLIC_WORDPRESS_API_BASE_URL || '';
     return url.replace(wpDomain, ''); // Strip out the WordPress domain if needed
   };
-
-  const buttonText = 'Menu';
 
   return (
     <>
