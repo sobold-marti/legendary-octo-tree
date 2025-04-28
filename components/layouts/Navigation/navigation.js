@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -13,7 +13,12 @@ export default function Navigation({siteLogo, menuItems}) {
     setNavMenu(prevMenu => !prevMenu);
   }
 
-  const menuClass = navMenu ? 'block' : 'hidden';
+  useEffect(() => {
+    setNavMenu(false);
+  }, [pathname]);
+
+  // const menuClass = navMenu ? 'block' : 'hidden';
+  const menuClass = navMenu ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none';
   
   const isActive = (url) => {
     // Check if the URL is relative
@@ -48,7 +53,7 @@ export default function Navigation({siteLogo, menuItems}) {
             <Link href="/">
               <img className="w-[10rem]" src={siteLogo} alt="Site Logo" />
             </Link>
-            <ul className="hidden sm:flex">
+            <ul className="hidden md:flex">
               {menuItems.map((item) => (
                 <li key={item.id}>
                   <Link
@@ -66,7 +71,7 @@ export default function Navigation({siteLogo, menuItems}) {
           </div>
         </div>
       </nav>
-      <nav className={`nav-mobile bg-blue-100 items-center fixed top-[8rem] z-[1000] w-full h-full transition-all md:hidden ${menuClass}`}>
+      <nav className={`nav-mobile bg-blue-100 items-center fixed top-[8rem] z-[1000] w-full h-full transition-all duration-300 ease-in-out md:hidden ${menuClass}`}>
           <div className="mx-auto flex items-center w-full h-full">
               <div className="flex flex-col items-center justify-center align-items-center space-y-5 w-full text-center mb-50">
                 <ul className="flex-col space-y-5 justify-end text-2xl">
